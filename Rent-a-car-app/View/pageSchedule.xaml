@@ -1,0 +1,111 @@
+﻿<Page x:Class="Rent_a_car_app.View.pageSchedule"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Rent_a_car_app.View"
+      mc:Ignorable="d" 
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="pageSchedule">
+    <Page.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#3065e2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            CornerRadius="5"
+                            Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid Grid.Column="0" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!-- Tekstblokovi -->
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="15" HorizontalAlignment="Center">
+                <TextBlock Text="Odaberite cenu koju želite" FontSize="15" Margin="15"/>
+                <TextBlock Text="Odaberite lokaciju za preuzimanje vozila" FontSize="15" Margin="15"/>
+                <TextBlock Text="Odaberite lokaciju za vraćanje vozila" FontSize="15" Margin="15"/>
+                <TextBlock Text="Odaberite datum preuzimanja vozila" FontSize="15" Margin="15"/>
+                <TextBlock Text="Odaberite datum vraćanje vozila" FontSize="15" Margin="15"/>
+            </StackPanel>
+
+            <!-- Biranja -->
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" Margin="15" HorizontalAlignment="Center">
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Slider x:Name="slajderOcena" Width="300" Minimum="3000" Maximum="15000" Margin="15"/>
+                    <TextBlock Text="{Binding ElementName=slajderOcena, Path=Value,StringFormat='{}{0:0,0} RSD'}" FontSize="15" Margin="15"/>
+                </StackPanel>
+                <ComboBox FontSize="15" Margin="15" Width="200" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding NazivLokacije}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox FontSize="15" Margin="5" Width="200">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding NazivLokacije}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <DatePicker FontSize="15" Margin="15" Width="200"/>
+                <DatePicker FontSize="15" Margin="15" Width="200"/>
+            </StackPanel>
+            <!-- Dugme -->
+            <Button Style="{StaticResource ButtonStyle}" Content="Pretrazi" Margin="15" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1"/>
+            <ListBox Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Vehicles}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Slika vozila -->
+                            <Image Grid.Column="0" Width="150" Height="100" Source="{Binding imageUrl}" Margin="5"/>
+
+                            <!-- Informacije o vozilu -->
+                            <StackPanel Grid.Column="1" Margin="10">
+                                <TextBlock Text="{Binding Brand}" FontSize="18" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Model.name}" FontSize="18" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding description}" FontSize="14" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding pricePerDay, StringFormat='{}{0:C} per day'}" FontSize="14"/>
+                            </StackPanel>
+
+                            <!-- Dugme "Odaberi" -->
+                            <Button Grid.Column="2" Style="{StaticResource ButtonStyle}" Content="Odaberi" Margin="150 0 0 0"/>
+                        </Grid>
+                    </DataTemplate>
+
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+</Page>

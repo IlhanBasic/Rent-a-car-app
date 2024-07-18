@@ -1,0 +1,40 @@
+﻿<Page x:Class="Rent_a_car_app.View.pageHome"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Rent_a_car_app.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="pageHome">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header sa logo-om i nazivom kompanije -->
+        <StackPanel Grid.Row="0" Background="#3065e2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <Image Source="/Pictures/company_logo.png" Width="100" Height="100" Margin="10"/>
+            <TextBlock Text="Rent a Car Company" FontSize="24" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" Margin="10"/>
+        </StackPanel>
+
+        <!-- Informacije o kompaniji -->
+        <StackPanel Grid.Row="1" Margin="20">
+            <TextBlock TextWrapping="Wrap" FontSize="18" Margin="10">
+                Dobrodošli u Rent a Car Company. Mi smo vaš pouzdan partner za iznajmljivanje automobila po povoljnim cenama.
+                Naša misija je da vam omogućimo udobno i sigurno putovanje uz širok izbor vozila i fleksibilne uslove iznajmljivanja.
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap" FontSize="16" Margin="10">
+                Kontaktirajte nas za više informacija o našim uslugama i aktuelnim ponudama.
+            </TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                <TextBlock Text="Pratite nas: " FontSize="16"/>
+                <Button Content="Facebook" Margin="5" Padding="10" Background="#3b5998" Foreground="White" Click="OpenFacebook"/>
+                <Button Content="Instagram" Margin="5" Padding="10" Background="#e4405f" Foreground="White" Click="OpenInstagram"/>
+                <Button Content="X" Margin="5" Padding="10" Background="#1da1f2" Foreground="White" Click="OpenX"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
