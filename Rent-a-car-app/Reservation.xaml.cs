@@ -127,8 +127,8 @@ namespace Rent_a_car_app
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
+
             Booking booking = makeReservation(_Customer, vehicle);
-                MessageBox.Show(booking.fromDate.ToString());
             if (booking!=null)
             {
                 this.Close();
