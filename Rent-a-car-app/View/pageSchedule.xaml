@@ -9,29 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="pageSchedule">
     <Page.Resources>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="#3065e2"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderBrush" Value="{x:Null}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                            CornerRadius="5"
-                            Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        
     </Page.Resources>
     <Grid>
         <Grid Grid.Column="0" HorizontalAlignment="Center">
@@ -59,26 +37,24 @@
                     <Slider x:Name="slajderOcena" Width="300" Minimum="3000" Maximum="15000" Margin="15"/>
                     <TextBlock Text="{Binding ElementName=slajderOcena, Path=Value,StringFormat='{}{0:0,0} RSD'}" FontSize="15" Margin="15"/>
                 </StackPanel>
-                <ComboBox FontSize="15" Margin="15" Width="200" >
+                <ComboBox x:Name="cbStart" FontSize="15" Margin="15" Width="200" ItemsSource="{Binding Locations}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding NazivLokacije}" />
+                            <TextBlock Text="{Binding nameLocation}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <ComboBox FontSize="15" Margin="5" Width="200">
+                <ComboBox x:Name="cbEnd" FontSize="15" Margin="5" Width="200" ItemsSource="{Binding Locations}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding NazivLokacije}" />
+                            <TextBlock Text="{Binding nameLocation}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <DatePicker FontSize="15" Margin="15" Width="200"/>
-                <DatePicker FontSize="15" Margin="15" Width="200"/>
+                <DatePicker x:Name="dtStart" FontSize="15" Margin="15" Width="200"/>
+                <DatePicker x:Name="dtEnd" FontSize="15" Margin="15" Width="200"/>
             </StackPanel>
-            <!-- Dugme -->
-            <Button Style="{StaticResource ButtonStyle}" Content="Pretrazi" Margin="15" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1"/>
-            <ListBox Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Vehicles}">
+            <ListBox Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Vehicles}" BorderBrush="Transparent" MaxHeight="500" Margin="0 0 0 150">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -100,7 +76,7 @@
                             </StackPanel>
 
                             <!-- Dugme "Odaberi" -->
-                            <Button Grid.Column="2" Style="{StaticResource ButtonStyle}" Content="Odaberi" Margin="150 0 0 0"/>
+                            <Button x:Name="btnCommit" Click="btnCommit_Click" Grid.Column="2" Style="{StaticResource ButtonStyle}" Content="Odaberi" Margin="150 0 0 0"/>
                         </Grid>
                     </DataTemplate>
 

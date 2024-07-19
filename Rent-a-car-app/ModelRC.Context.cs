@@ -25,6 +25,9 @@ namespace Rent_a_car_app
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Model> Models { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }

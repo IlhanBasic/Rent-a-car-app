@@ -12,24 +12,21 @@ namespace Rent_a_car_app
     using System;
     using System.Collections.Generic;
     
-    public partial class Vehicle
+    public partial class Location
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Vehicle()
+        public Location()
         {
             this.Bookings = new HashSet<Booking>();
+            this.Bookings1 = new HashSet<Booking>();
         }
     
         public int id { get; set; }
-        public string description { get; set; }
-        public string imageUrl { get; set; }
-        public Nullable<decimal> pricePerDay { get; set; }
-        public Nullable<int> modelId { get; set; }
-        public string Brand { get; set; }
-        public Nullable<bool> isReserved { get; set; }
+        public string nameLocation { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
-        public virtual Model Model { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking> Bookings1 { get; set; }
     }
 }

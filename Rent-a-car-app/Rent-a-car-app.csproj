@@ -84,6 +84,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Booking.cs">
+      <DependentUpon>ModelRC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs">
+      <DependentUpon>ModelRC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Location.cs">
+      <DependentUpon>ModelRC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -104,6 +113,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelRC.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Reservation.xaml.cs">
+      <DependentUpon>Reservation.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserLogin.cs">
       <DependentUpon>ModelRC.tt</DependentUpon>
@@ -133,6 +145,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Reservation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\pageHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -220,6 +236,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Pictures\a6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\touareg.png" />
+    <Resource Include="Pictures\clio.png" />
+    <Resource Include="Pictures\fabia.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ModelRC.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelRC.edmx</DependentUpon>
@@ -230,7 +254,6 @@
       <DependentUpon>ModelRC.edmx</DependentUpon>
       <LastGenOutput>ModelRC.cs</LastGenOutput>
     </Content>
-    <Resource Include="Pictures\a6.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
