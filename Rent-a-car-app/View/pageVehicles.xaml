@@ -26,7 +26,7 @@
             </Button>
             <Button Background="Transparent" BorderThickness="0" Margin="15" FontSize="20" x:Name="btnAdd" Click="btnAdd_Click">
                 <Button.Content>
-                    <Image Source="/Pictures/a6.png" Width="30"/>
+                    <Image Source="/Pictures/plus.png" Width="30"/>
                 </Button.Content>
             </Button>
         </StackPanel>

@@ -46,7 +46,7 @@ namespace Rent_a_car_app.View
                 OnPropertyChanged();
             }
         }
-        public pageLocations(UserLogin user)
+        public pageLocations()
         {
             InitializeComponent();
             Places = new ObservableCollection<Location>();
@@ -55,10 +55,7 @@ namespace Rent_a_car_app.View
             {
                 Places.Add(location);
             }
-            if (user.username == "admin")
-            {
-
-            }
+            
         }
         public bool isSelectedButton()
         {
@@ -127,9 +124,9 @@ namespace Rent_a_car_app.View
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            //AddVehicle addVehicle = new AddVehicle();
-            //addVehicle.Show();
-            //addVehicle.Closed += _Closed;
+            AddLocation addLocation = new AddLocation();
+            addLocation.Show();
+            addLocation.Closed += _Closed;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

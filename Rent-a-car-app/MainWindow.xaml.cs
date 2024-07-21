@@ -77,7 +77,7 @@ namespace Rent_a_car_app
         }
         private void btnLocations_Click(object sender, RoutedEventArgs e)
         {
-            pageLocations pageLocations = new pageLocations(_UserLogin);
+            pageLocations pageLocations = new pageLocations();
             mainShow.Content = pageLocations;
             if (clickedButton != null)
             {
@@ -88,6 +88,21 @@ namespace Rent_a_car_app
             btnLocations.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2f2f");
             clickedButton = btnLocations;
         }
+        private void btnPayment_Click(object sender, RoutedEventArgs e)
+        {
+            pagePayment pagePayment = new pagePayment();
+            mainShow.Content = pagePayment;
+            if (clickedButton != null)
+            {
+                clickedButton.Background = Brushes.Transparent;
+                clickedButton.Foreground = Brushes.Black;
+            }
+            btnPayment.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#bee6fd");
+            btnPayment.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2f2f");
+            clickedButton = btnPayment;
+        }
+
+      
     }
 
     

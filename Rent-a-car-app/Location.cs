@@ -28,5 +28,9 @@ namespace Rent_a_car_app
         public virtual ICollection<Booking> Bookings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings1 { get; set; }
+        public override string ToString()
+        {
+            return nameLocation;
+        }
     }
 }

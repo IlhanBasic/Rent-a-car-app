@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddLocation.xaml.cs">
+      <DependentUpon>AddLocation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddVehicle.xaml.cs">
       <DependentUpon>AddVehicle.xaml</DependentUpon>
     </Compile>
@@ -138,12 +141,19 @@
     <Compile Include="View\pageHome.xaml.cs">
       <DependentUpon>pageHome.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\pagePayment.xaml.cs">
+      <DependentUpon>pagePayment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\pageSchedule.xaml.cs">
       <DependentUpon>pageSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\pageVehicles.xaml.cs">
       <DependentUpon>pageVehicles.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddLocation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddVehicle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\pageHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\pagePayment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -289,6 +303,7 @@
       <DependentUpon>ModelRC.edmx</DependentUpon>
       <LastGenOutput>ModelRC.cs</LastGenOutput>
     </Content>
+    <Resource Include="Pictures\plus.png" />
     <Resource Include="Pictures\trash.png" />
     <Resource Include="Pictures\edit.png" />
   </ItemGroup>
