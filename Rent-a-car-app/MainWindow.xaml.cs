@@ -20,7 +20,7 @@ namespace Rent_a_car_app
             {
                 btnVehicles.Visibility = Visibility.Visible;
                 btnLocations.Visibility = Visibility.Visible;
-                btnPayement.Visibility = Visibility.Visible;
+                btnPayment.Visibility = Visibility.Visible;
             }
             pageHome pageHome = new pageHome();
             mainShow.Content = pageHome;
@@ -74,6 +74,19 @@ namespace Rent_a_car_app
             btnVehicles.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#bee6fd");
             btnVehicles.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2f2f");
             clickedButton = btnVehicles;
+        }
+        private void btnLocations_Click(object sender, RoutedEventArgs e)
+        {
+            pageLocations pageLocations = new pageLocations(_UserLogin);
+            mainShow.Content = pageLocations;
+            if (clickedButton != null)
+            {
+                clickedButton.Background = Brushes.Transparent;
+                clickedButton.Foreground = Brushes.Black;
+            }
+            btnLocations.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#bee6fd");
+            btnLocations.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2f2f");
+            clickedButton = btnLocations;
         }
     }
 

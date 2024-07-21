@@ -53,14 +53,14 @@
                     </Button>
 
 
-                    <Button x:Name="btnLocations" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" Visibility="Hidden">
+                    <Button x:Name="btnLocations" Click="btnLocations_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" Visibility="Hidden">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Image Width="30" Height="30" Margin="5" Source="Pictures/management.png"/>
                             <TextBlock Text="Lokacije" FontSize="16" VerticalAlignment="Center" Margin="5"/>
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="btnPayement" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" Visibility="Hidden">
+                    <Button x:Name="btnPayment" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5" Visibility="Hidden">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Image Width="30" Height="30" Margin="5" Source="Pictures/payment-method.png"/>
                             <TextBlock Text="Plaćanja" FontSize="16" VerticalAlignment="Center" Margin="5"/>

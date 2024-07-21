@@ -45,6 +45,10 @@ namespace Rent_a_car_app.View
             {
                 Vehicles.Add(v);
             }
+            if (user.username == "admin")
+            {
+                btnAdminGroup.Visibility = Visibility.Visible;
+            }
         }
 
         public bool isSelectedButton()

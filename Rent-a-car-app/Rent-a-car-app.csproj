@@ -120,6 +120,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelRC.edmx</DependentUpon>
     </Compile>
+    <Compile Include="View\pageLocations.xaml.cs">
+      <DependentUpon>pageLocations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Reservation.xaml.cs">
       <DependentUpon>Reservation.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\pageLocations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Reservation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
