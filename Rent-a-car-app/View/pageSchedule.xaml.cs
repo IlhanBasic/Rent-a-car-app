@@ -75,7 +75,7 @@ namespace Rent_a_car_app.View
             Vehicles = new ObservableCollection<Vehicle>();
             Locations = new ObservableCollection<Location>();
 
-            var temp = context.Vehicles.ToList();
+            var temp = context.Vehicles.Where(v=>v.isReserved==false).ToList();
             foreach (var v in temp)
             {
                 Vehicles.Add(v);
@@ -145,7 +145,15 @@ namespace Rent_a_car_app.View
             }
             return null;
         }
-
+        private void refreshVehicle()
+        {
+            var temp = context.Vehicles.Where(v=>v.isReserved==false).ToList();
+            Vehicles.Clear();
+            foreach (var v in temp)
+            {
+                Vehicles.Add(v);
+            }
+        }
         private void ValidateInputs(Vehicle v)
         {
             if (!dtStart.SelectedDate.HasValue || !dtEnd.SelectedDate.HasValue)
@@ -171,6 +179,7 @@ namespace Rent_a_car_app.View
             }
             Reservation reservation = new Reservation(v,DtStart, DtEnd, idNow, idLater);
             reservation.Show();
+            reservation.Closed += (s, e) => { refreshVehicle(); };
         }
 
     }

@@ -11,15 +11,16 @@ namespace Rent_a_car_app
     public partial class MainWindow : Window
     {
         Button clickedButton = null;
+        UserLogin _UserLogin { get; set; }
         public MainWindow(UserLogin User)
         {
+            _UserLogin = User;
             InitializeComponent();
             if(User != null && User.username=="admin")
             {
                 btnVehicles.Visibility = Visibility.Visible;
                 btnLocations.Visibility = Visibility.Visible;
                 btnPayement.Visibility = Visibility.Visible;
-                btnStat.Visibility = Visibility.Visible;
             }
             pageHome pageHome = new pageHome();
             mainShow.Content = pageHome;
@@ -55,12 +56,24 @@ namespace Rent_a_car_app
             btnSchedule.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2f2f");
             clickedButton = btnSchedule;
         }
-
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             Login login = new Login();
             login.Show();
             this.Close();
+        }
+        private void btnVehicles_Click(object sender, RoutedEventArgs e)
+        {
+            pageVehicles pageVehicles = new pageVehicles(_UserLogin);
+            mainShow.Content = pageVehicles;
+            if (clickedButton != null)
+            {
+                clickedButton.Background = Brushes.Transparent;
+                clickedButton.Foreground = Brushes.Black;
+            }
+            btnVehicles.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#bee6fd");
+            btnVehicles.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2f2f");
+            clickedButton = btnVehicles;
         }
     }
 

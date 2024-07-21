@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,25 +17,39 @@ using System.Windows.Shapes;
 
 namespace Rent_a_car_app
 {
-    /// <summary>
-    /// Interaction logic for Reservation.xaml
-    /// </summary>
-    public partial class Reservation : Window
+    public partial class Reservation : Window, INotifyPropertyChanged
     {
-        RENTACAREntities1 context= new RENTACAREntities1();
-        private Customer  _customer;
+        RENTACAREntities1 context = new RENTACAREntities1();
+        private Customer _customer;
 
-        public Customer  _Customer
+        public Customer _Customer
         {
             get { return _customer; }
-            set { _customer = value; }
+            set 
+            { 
+                _customer = value;
+                OnPropertyChanged();
+            }
         }
+
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
         public int startLocation { get; set; }
         public int endLocation { get; set; }
         public Vehicle vehicle { get; set; }
-        public Reservation(Vehicle v,DateTime fromDate,DateTime toDate,int fromLocation,int toLocation)
+
+        private decimal totalBill;
+        public decimal TotalBill
+        {
+            get { return totalBill; }
+            set
+            {
+                totalBill = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Reservation(Vehicle v, DateTime fromDate, DateTime toDate, int fromLocation, int toLocation)
         {
             InitializeComponent();
             _Customer = new Customer();
@@ -41,7 +57,14 @@ namespace Rent_a_car_app
             endDate = toDate;
             startLocation = fromLocation;
             endLocation = toLocation;
-            vehicle = new Vehicle();
+            vehicle = v;
+            calculateTotalBill();
+        }
+
+        public void calculateTotalBill()
+        {
+            TimeSpan razlika = endDate - startDate;
+            TotalBill = (int)razlika.Days * (vehicle.pricePerDay ?? 0); 
         }
 
         public Booking makeReservation(Customer c, Vehicle v)
@@ -49,8 +72,6 @@ namespace Rent_a_car_app
             bool canMake = isValidReservation();
             if (canMake)
             {
-                context.Customers.Append(c);
-                context.Vehicles.Append(v);
                 Customer customer = new Customer
                 {
                     id = _Customer.id,
@@ -62,6 +83,7 @@ namespace Rent_a_car_app
                     securityNo = c.securityNo,
                     PIN = c.PIN
                 };
+
                 Booking reservation = new Booking
                 {
                     customerId = customer.id,
@@ -71,65 +93,132 @@ namespace Rent_a_car_app
                     makeReservationDate = DateTime.Now,
                     pickupLocationId = startLocation,
                     returnLocationId = endLocation
-
                 };
+
+                context.Vehicles.Find(v.id).isReserved=true;
+                context.Customers.Add(c);
+                context.Bookings.Add(reservation);
+                context.SaveChanges();
                 return reservation;
             }
             return null;
         }
         bool isValidReservation()
         {
-            if (_Customer.firstName == null || _Customer.lastName == null ||
-                _Customer.phone == null || _Customer.noCredCard == null || _Customer.email == null ||
-                _Customer.PIN == null || _Customer.securityNo == null)
+            if (string.IsNullOrWhiteSpace(_Customer.firstName))
             {
+                MessageBox.Show("Ime nije uneseno.");
                 return false;
             }
-            else if (!isValidPIN(_Customer.PIN) || !isValidSecurityNumber(_Customer.securityNo) ||
-                !IsValidEmail(_Customer.email) || !IsValidInput(_Customer.firstName) ||
-                !IsValidInput(_Customer.lastName) || !isValidPhoneNumber(_Customer.phone))
+
+            if (string.IsNullOrWhiteSpace(_Customer.lastName))
             {
+                MessageBox.Show("Prezime nije uneseno.");
                 return false;
             }
-            else
+
+            if (string.IsNullOrWhiteSpace(_Customer.phone))
             {
-                return true;
+                MessageBox.Show("Telefon nije unesen.");
+                return false;
             }
-        }
-        string PINPattern = @"^\d{4}$";
-        bool isValidPIN(int? PIN)
-        {
-            return Regex.IsMatch(PIN.ToString(), PINPattern);
-        }
-        string SecurityNumberPattern = @"^\d{4}$";
-        bool isValidSecurityNumber(int? SecurityNumber)
-        {
-            return Regex.IsMatch(SecurityNumber.ToString(), SecurityNumberPattern);
-        }
-        string SimpleEmailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
 
-        bool IsValidEmail(string email)
-        {
-            return Regex.IsMatch(email, SimpleEmailPattern, RegexOptions.IgnoreCase);
-        }
-        string LettersOnlyPattern = @"^[a-zA-Z]+$";
+            if (string.IsNullOrWhiteSpace(_Customer.noCredCard))
+            {
+                MessageBox.Show("Broj računa nije unesen.");
+                return false;
+            }
 
-        bool IsValidInput(string input)
-        {
-            return Regex.IsMatch(input, LettersOnlyPattern);
-        }
-        string PhoneNumbersPattern = @"^\d{9,15}$|^\d{3}-\d{3}-\d{4}$";
+            if (string.IsNullOrWhiteSpace(_Customer.email))
+            {
+                MessageBox.Show("Email nije unesen.");
+                return false;
+            }
 
-        bool isValidPhoneNumber(string phoneNumber)
+            if (!_Customer.PIN.HasValue)
+            {
+                MessageBox.Show("PIN nije unesen.");
+                return false;
+            }
+
+            if (!_Customer.securityNo.HasValue)
+            {
+                MessageBox.Show("Sigurnosni broj nije unesen.");
+                return false;
+            }
+
+            // Ako su svi podaci prisutni
+            MessageBox.Show("Uspesno ste rezervisali vozilo koje vas ceka na naznačenoj adresi.");
+            return true;
+        }
+
+        //bool isValidReservation()
+        //{
+        //    if (string.IsNullOrWhiteSpace(_Customer.firstName) ||
+        //        string.IsNullOrWhiteSpace(_Customer.lastName) ||
+        //        string.IsNullOrWhiteSpace(_Customer.phone) ||
+        //        string.IsNullOrWhiteSpace(_Customer.noCredCard) ||
+        //        string.IsNullOrWhiteSpace(_Customer.email) ||
+        //        !_Customer.PIN.HasValue || !_Customer.securityNo.HasValue)
+        //    {
+        //        return false;
+        //    }
+        //    else if (!isValidPIN(_Customer.PIN.Value) ||
+        //             !isValidSecurityNumber(_Customer.securityNo.Value) ||
+        //             !IsValidEmail(_Customer.email) ||
+        //             !IsValidInput(_Customer.firstName) ||
+        //             !IsValidInput(_Customer.lastName) ||
+        //             !isValidPhoneNumber(_Customer.phone))
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
+
+
+        //string PINPattern = @"^\d{4}$";
+        //bool isValidPIN(int? PIN)
+        //{
+        //    return Regex.IsMatch(PIN.ToString(), PINPattern);
+        //}
+
+        //string SecurityNumberPattern = @"^\d{4}$";
+        //bool isValidSecurityNumber(int? SecurityNumber)
+        //{
+        //    return Regex.IsMatch(SecurityNumber.ToString(), SecurityNumberPattern);
+        //}
+
+        //string SimpleEmailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+        //bool IsValidEmail(string email)
+        //{
+        //    return Regex.IsMatch(email, SimpleEmailPattern, RegexOptions.IgnoreCase);
+        //}
+
+        //string LettersOnlyPattern = @"^[a-zA-Z]+$";
+        //bool IsValidInput(string input)
+        //{
+        //    return Regex.IsMatch(input, LettersOnlyPattern);
+        //}
+
+        //string PhoneNumbersPattern = @"^\d{9,15}$|^\d{3}-\d{3}-\d{4}$";
+        //bool isValidPhoneNumber(string phoneNumber)
+        //{
+        //    return Regex.IsMatch(phoneNumber, PhoneNumbersPattern);
+        //}
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            return Regex.IsMatch(phoneNumber, PhoneNumbersPattern);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-
             Booking booking = makeReservation(_Customer, vehicle);
-            if (booking!=null)
+            if (booking != null)
             {
                 this.Close();
             }
