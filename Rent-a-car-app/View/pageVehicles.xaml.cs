@@ -72,7 +72,7 @@ namespace Rent_a_car_app.View
                 edit.Show();
                 if (edit.isEdited)
                 {
-                edit.Closed += Edit_Closed;
+                edit.Closed += _Closed;
                 }
             }
             else
@@ -81,7 +81,7 @@ namespace Rent_a_car_app.View
             }
         }
 
-        private void Edit_Closed(object sender, System.EventArgs e)
+        private void _Closed(object sender, System.EventArgs e)
         {
             
             refreshVehicles();
@@ -101,7 +101,9 @@ namespace Rent_a_car_app.View
                         {
                             context.Vehicles.Remove(selektovano);
                             context.SaveChanges();
-                            lbShow.Items.Remove(selektovano);
+                            lbShow.ItemsSource = null;
+                            lbShow.ItemsSource = Vehicles;
+                            refreshVehicles();
                         }
                         else
                         {
@@ -122,7 +124,9 @@ namespace Rent_a_car_app.View
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            AddVehicle addVehicle = new AddVehicle();
+            addVehicle.Show();
+            addVehicle.Closed += _Closed;
         }
     }
 }

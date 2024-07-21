@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddVehicle.xaml.cs">
+      <DependentUpon>AddVehicle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Booking.cs">
       <DependentUpon>ModelRC.tt</DependentUpon>
     </Compile>
@@ -135,6 +138,10 @@
     <Compile Include="View\pageVehicles.xaml.cs">
       <DependentUpon>pageVehicles.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddVehicle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditVehicle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
