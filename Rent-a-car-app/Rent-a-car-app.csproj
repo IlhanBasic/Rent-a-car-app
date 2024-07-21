@@ -93,6 +93,9 @@
     <Compile Include="Customer.cs">
       <DependentUpon>ModelRC.tt</DependentUpon>
     </Compile>
+    <Compile Include="EditLocation.xaml.cs">
+      <DependentUpon>EditLocation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditVehicle.xaml.cs">
       <DependentUpon>EditVehicle.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,10 @@
       <DependentUpon>pageVehicles.xaml</DependentUpon>
     </Compile>
     <Page Include="AddVehicle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditLocation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

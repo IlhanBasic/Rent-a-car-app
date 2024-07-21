@@ -70,18 +70,24 @@ namespace Rent_a_car_app.View
             if (isSelectedButton())
             {
                 var v = dgShow.SelectedItem as Location;
-                //EditVehicle edit = new EditVehicle(context, v);
-                //edit.Show();
-                //if (edit.isEdited)
-                //{
-                //    edit.Closed += _Closed;
-                //}
+                EditLocation edit = new EditLocation(context, v);
+                edit.Show();
+                if (edit.IsEdited)
+                {
+                    edit.Closed += _Closed;
+                }
             }
             else
             {
                 MessageBox.Show("Morate selektovati vozilo za izmenu");
             }
         }
+
+        private void _Closed(object sender, EventArgs e)
+        {
+            refreshLocations();
+        }
+
         private void refreshLocations()
         {
             Places.Clear();
