@@ -64,7 +64,7 @@ namespace Rent_a_car_app
         public void calculateTotalBill()
         {
             TimeSpan razlika = endDate - startDate;
-            TotalBill = (int)razlika.Days * (vehicle.pricePerDay ?? 0); 
+            TotalBill = razlika.Days!=0?(int)razlika.Days * (vehicle.pricePerDay ?? 0):(decimal)vehicle.pricePerDay; 
         }
 
         public Booking makeReservation(Customer c, Vehicle v)

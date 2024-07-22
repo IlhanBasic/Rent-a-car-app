@@ -172,7 +172,7 @@ namespace Rent_a_car_app.View
             int idNow = now.id;
             Location after = cbEnd.SelectedItem as Location;
             int idLater = after.id;
-            if (DtStart < DateTime.Now || DtEnd < DateTime.Now || DtStart >= DtEnd)
+            if (DtStart.Date < DateTime.Now.Date && DtEnd.Date < DateTime.Now.Date && DtStart.Date < DtEnd.Date)
             {
                 MessageBox.Show("Morate izabrati validne datume. Datum početka ne može biti pre sadašnjeg datuma i datum završetka ne može biti pre datuma početka.");
                 return;
