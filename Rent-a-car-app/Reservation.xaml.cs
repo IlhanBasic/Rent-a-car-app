@@ -103,113 +103,121 @@ namespace Rent_a_car_app
             }
             return null;
         }
-        bool isValidReservation()
-        {
-            if (string.IsNullOrWhiteSpace(_Customer.firstName))
-            {
-                MessageBox.Show("Ime nije uneseno.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(_Customer.lastName))
-            {
-                MessageBox.Show("Prezime nije uneseno.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(_Customer.phone))
-            {
-                MessageBox.Show("Telefon nije unesen.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(_Customer.noCredCard))
-            {
-                MessageBox.Show("Broj računa nije unesen.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(_Customer.email))
-            {
-                MessageBox.Show("Email nije unesen.");
-                return false;
-            }
-
-            if (!_Customer.PIN.HasValue)
-            {
-                MessageBox.Show("PIN nije unesen.");
-                return false;
-            }
-
-            if (!_Customer.securityNo.HasValue)
-            {
-                MessageBox.Show("Sigurnosni broj nije unesen.");
-                return false;
-            }
-
-            // Ako su svi podaci prisutni
-            MessageBox.Show("Uspesno ste rezervisali vozilo koje vas ceka na naznačenoj adresi.");
-            return true;
-        }
-
         //bool isValidReservation()
         //{
-        //    if (string.IsNullOrWhiteSpace(_Customer.firstName) ||
-        //        string.IsNullOrWhiteSpace(_Customer.lastName) ||
-        //        string.IsNullOrWhiteSpace(_Customer.phone) ||
-        //        string.IsNullOrWhiteSpace(_Customer.noCredCard) ||
-        //        string.IsNullOrWhiteSpace(_Customer.email) ||
-        //        !_Customer.PIN.HasValue || !_Customer.securityNo.HasValue)
+        //    if (string.IsNullOrWhiteSpace(_Customer.firstName))
         //    {
+        //        MessageBox.Show("Ime nije uneseno.");
         //        return false;
         //    }
-        //    else if (!isValidPIN(_Customer.PIN.Value) ||
-        //             !isValidSecurityNumber(_Customer.securityNo.Value) ||
-        //             !IsValidEmail(_Customer.email) ||
-        //             !IsValidInput(_Customer.firstName) ||
-        //             !IsValidInput(_Customer.lastName) ||
-        //             !isValidPhoneNumber(_Customer.phone))
+
+        //    if (string.IsNullOrWhiteSpace(_Customer.lastName))
         //    {
+        //        MessageBox.Show("Prezime nije uneseno.");
         //        return false;
         //    }
-        //    else
+
+        //    if (string.IsNullOrWhiteSpace(_Customer.phone))
         //    {
-        //        return true;
+        //        MessageBox.Show("Telefon nije unesen.");
+        //        return false;
         //    }
+
+        //    if (string.IsNullOrWhiteSpace(_Customer.noCredCard))
+        //    {
+        //        MessageBox.Show("Broj računa nije unesen.");
+        //        return false;
+        //    }
+
+        //    if (string.IsNullOrWhiteSpace(_Customer.email))
+        //    {
+        //        MessageBox.Show("Email nije unesen.");
+        //        return false;
+        //    }
+
+        //    if (!_Customer.PIN.HasValue)
+        //    {
+        //        MessageBox.Show("PIN nije unesen.");
+        //        return false;
+        //    }
+
+        //    if (!_Customer.securityNo.HasValue)
+        //    {
+        //        MessageBox.Show("Sigurnosni broj nije unesen.");
+        //        return false;
+        //    }
+
+        //    // Ako su svi podaci prisutni
+        //    MessageBox.Show("Uspesno ste rezervisali vozilo koje vas ceka na naznačenoj adresi.");
+        //    return true;
         //}
 
+        bool isValidReservation()
+        {
+            if (string.IsNullOrWhiteSpace(_Customer.firstName) ||
+                string.IsNullOrWhiteSpace(_Customer.lastName) ||
+                string.IsNullOrWhiteSpace(_Customer.phone) ||
+                string.IsNullOrWhiteSpace(_Customer.noCredCard) ||
+                string.IsNullOrWhiteSpace(_Customer.email) ||
+                !_Customer.PIN.HasValue || !_Customer.securityNo.HasValue)
+            {
+                return false;
+            }
+            else if (!isValidPIN(_Customer.PIN.Value) ||
+                     !isValidSecurityNumber(_Customer.securityNo.Value) ||
+                     !IsValidEmail(_Customer.email) ||
+                     !IsValidInput(_Customer.firstName) ||
+                     !IsValidInput(_Customer.lastName) ||
+                     !isValidPhoneNumber(_Customer.phone) || 
+                     !isValidCardNumber(_Customer.noCredCard))
+            {
+                return false;
+            }
+            else
+            {
+                MessageBox.Show("Uspešno ste napravili rezervaciju. Hvala na ukazanom poverenju.");
+                return true;
+            }
+        }
 
-        //string PINPattern = @"^\d{4}$";
-        //bool isValidPIN(int? PIN)
-        //{
-        //    return Regex.IsMatch(PIN.ToString(), PINPattern);
-        //}
 
-        //string SecurityNumberPattern = @"^\d{4}$";
-        //bool isValidSecurityNumber(int? SecurityNumber)
-        //{
-        //    return Regex.IsMatch(SecurityNumber.ToString(), SecurityNumberPattern);
-        //}
+        string PINPattern = @"^\d{4}$";
+        bool isValidPIN(int? PIN)
+        {
+            return Regex.IsMatch(PIN.ToString(), PINPattern);
+        }
 
-        //string SimpleEmailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-        //bool IsValidEmail(string email)
-        //{
-        //    return Regex.IsMatch(email, SimpleEmailPattern, RegexOptions.IgnoreCase);
-        //}
+        string SecurityNumberPattern = @"^\d{3}$";
+        bool isValidSecurityNumber(int? SecurityNumber)
+        {
+            return Regex.IsMatch(SecurityNumber.ToString(), SecurityNumberPattern);
+        }
 
-        //string LettersOnlyPattern = @"^[a-zA-Z]+$";
-        //bool IsValidInput(string input)
-        //{
-        //    return Regex.IsMatch(input, LettersOnlyPattern);
-        //}
+        string SimpleEmailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+        bool IsValidEmail(string email)
+        {
+            return Regex.IsMatch(email, SimpleEmailPattern, RegexOptions.IgnoreCase);
+        }
 
-        //string PhoneNumbersPattern = @"^\d{9,15}$|^\d{3}-\d{3}-\d{4}$";
-        //bool isValidPhoneNumber(string phoneNumber)
-        //{
-        //    return Regex.IsMatch(phoneNumber, PhoneNumbersPattern);
-        //}
+        string LettersOnlyPattern = @"^[a-zA-Z]+$";
+        bool IsValidInput(string input)
+        {
+            return Regex.IsMatch(input, LettersOnlyPattern);
+        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        string PhoneNumbersPattern = @"^\d{9,15}$|^\d{3}-\d{3}-\d{4}$";
+        bool isValidPhoneNumber(string phoneNumber)
+        {
+            return Regex.IsMatch(phoneNumber, PhoneNumbersPattern);
+        }
+
+		string CardNumbersPattern = @"^\d{14,18}$";
+		bool isValidCardNumber(string cardNumber)
+		{
+			return Regex.IsMatch(cardNumber, CardNumbersPattern);
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
